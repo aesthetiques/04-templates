@@ -26,6 +26,7 @@ articleView.handleAuthorFilter = function() {
     if ($(this).val()) {
       $('article').hide();
       $(`article[data-author="${$(this).val()}"]`).fadeIn();
+      console.log(`${$(this).val()}`);
     } else {
       $('article').fadeIn();
       $('article.template').hide();

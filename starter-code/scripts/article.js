@@ -2,13 +2,13 @@
 
 var articles = [];
 
-function Article (opts) {
-  this.author = opts.author;
-  this.authorUrl = opts.authorUrl;
-  this.title = opts.title;
-  this.category = opts.category;
-  this.body = opts.body;
-  this.publishedOn = opts.publishedOn;
+function Article (rawData) {
+  this.author = rawData.author;
+  this.authorUrl = rawData.authorUrl;
+  this.title = rawData.title;
+  this.category = rawData.category;
+  this.body = rawData.body;
+  this.publishedOn = rawData.publishedOn;
 }
 
 Article.prototype.toHtml = function() {
@@ -21,9 +21,13 @@ Article.prototype.toHtml = function() {
   //   For example, you might want to display how old a post is, or say "(draft)" if it has no publication date:
   this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
   this.publishStatus = this.publishedOn ? `published ${this.daysAgo} days ago` : '(draft)';
+  var source = $('#article-template').html();
+  var templateRender = Handlebars.compile(source);
+  console.log(this);
+
 
   // TODO: Use the function that Handlebars gave you to return your filled-in html template for THIS article.
-
+  return templateRender(this);
 };
 
 rawData.sort(function(a,b) {
